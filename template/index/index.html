@@ -1,0 +1,123 @@
+{include file="public/header"}
+<body class="layui-layout-body">
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+
+
+
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+
+
+
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <cite>{$Think.session.admin.username}</cite>
+                    </a>
+                    <dl class="layui-nav-child">
+
+                        <dd layadmin-event="logout" style="text-align: center;" onclick="del('','/index.php/index/account/logout','你确定要退出吗?')"><a>退出</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+                    <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="home/console.html">
+                    <span>名车养护</span>
+                </div>
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+                    {volist name="data" id='vo'}
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                            <i class="layui-icon {$vo.icon}"></i>
+                            <cite>{$vo.title}</cite>
+                        </a>
+                        <?php if(isset($vo['son'])){
+foreach($vo['son'] as $k=>$v){
+                        $title = $v['title'];
+                        $method=$v['method'];
+                        $controller =$v['controller'];
+                        echo "<dl class='layui-nav-child'>
+                        <dd data-name='console' >
+                            <a href='javascript:;' onclick='menuC(this)' src='index/$controller/$method'>$title</a>
+                        </dd>
+                    </dl>";
+                        }
+
+
+                        } ; ?>
+
+                    </li>
+                    {/volist}
+<!--                    <li  class="layui-nav-item ">-->
+<!--                        <a href="javascript:;" lay-tips="主页" lay-direction="2">-->
+<!--                            <i class="layui-icon layui-icon-username"></i>-->
+<!--                            <cite>管理员管理</cite>-->
+<!--                        </a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd data-name="console" >-->
+<!--                                <a  href="javascript:;" onclick="menuC(this)" src="index/account/a_list">管理员列表</a>-->
+<!--                            </dd>-->
+<!--                        </dl>-->
+<!--                    </li>-->
+<!--                    <li  class="layui-nav-item ">-->
+<!--                        <a href="javascript:;" lay-tips="主页" lay-direction="2">-->
+<!--                            <i class="layui-icon layui-icon-auz"></i>-->
+<!--                            <cite>权限管理</cite>-->
+<!--                        </a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd data-name="console" >-->
+<!--                                <a  href="javascript:;" onclick="menuC(this)" src="{:url('index/menu/index')}">菜单管理</a>-->
+<!--                            </dd>-->
+<!--                            <dd data-name="console" >-->
+<!--                                <a  href="javascript:;" onclick="menuC(this)" src="{:url('index/roles/index')}">角色管理</a>-->
+<!--                            </dd>-->
+<!--                        </dl>-->
+<!--                    </li>-->
+<!--                    <li data-name="home" class="layui-nav-item">-->
+<!--                        <a href="javascript:;" lay-tips="会员管理" lay-direction="2">-->
+<!--                            <i class="layui-icon layui-icon-user"></i>-->
+<!--                            <cite>会员管理</cite>-->
+<!--                        </a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd>-->
+<!--                                <a href="javascript:;" onclick="menuC(this)" src="{:url('index/user/index')}">会员列表</a>-->
+<!--                            </dd>-->
+<!--                            <dd>-->
+<!--                                <a href="javascript:;" onclick="menuC(this)" src="{:url('index/item/index')}">消费项目</a>-->
+<!--                            </dd>-->
+
+<!--                        </dl>-->
+<!--                    </li>-->
+                    <!--                    <li data-name="get" class="layui-nav-item layui-this">-->
+                    <!--                        <a href="javascript:;" lay-href="#" lay-tips="授权" lay-direction="2">-->
+                    <!--                            <i class="layui-icon layui-icon-auz"></i>-->
+                    <!--                            <cite>会员管理</cite>-->
+                    <!--                        </a>-->
+                    <!--                    </li>-->
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <iframe src="{:url('index/welcome')}"   frameborder="0" scrolling="0" class="layadmin-iframe"></iframe>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © 星火
+        </div>
+    </div>
+    {include file="public/footer"}

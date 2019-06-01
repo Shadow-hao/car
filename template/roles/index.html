@@ -1,0 +1,48 @@
+{include file="public/header"}
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <button type="button" class="layui-btn" onclick="nw('{:url('index/roles/add')}','添加角色')">添加</button>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="50">
+                <col width="200">
+                <col width="500">
+
+
+            </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>角色名称</th>
+
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="data" id="vo"}
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td>
+                    <div class="layui-table-cell ">
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" onclick="nw('/index.php/index/roles/edit?id='+{$vo.id},'编辑角色')" >
+                            <i class="layui-icon layui-icon-edit"></i>编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del({$vo.id},'/index.php/index/roles/del')">
+                            <i class="layui-icon layui-icon-delete"></i>删除</a>
+                    </div>
+                </td>
+            </tr>
+
+            {/volist}
+            </tbody>
+        </table>
+        <div style="text-align: center">
+
+        </div>
+
+    </div>
+
+    {include file="public/footer"}

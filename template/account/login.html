@@ -1,0 +1,56 @@
+{include file="public/header"}
+<body style="height: 100%" onkeydown="on_h()">
+
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login"">
+
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>名车养护</h2>
+        </div>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="username"></label>
+                <input type="text" name="username" id="username" lay-verify="required" placeholder="用户名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="password"></label>
+                <input type="password" name="password" id="password" lay-verify="required" placeholder="密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-xs7">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="captcha"></label>
+                        <input type="text" name="verify" id="captcha" lay-verify="required" placeholder="图形验证码" class="layui-input">
+                    </div>
+                    <div class="layui-col-xs5">
+                        <div style="margin-left: 10px;">
+                            <img src="{:captcha_src()}" id="img" class="layadmin-user-login-codeimg" onclick="reloadImg()" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" id="login"  lay-filter="LAY-user-login-submit" onclick="login()">登 入</button>
+            </div>
+
+        </div>
+    </div>
+<script>
+
+    function login() {
+        var username = $.trim($('#username').val());
+        var password = $.trim($('#password').val());
+        var captcha = $.trim($('#captcha').val());
+        $.post('/index.php/index/account/doLogin',{'username':username,'password':password,'captcha':captcha},function (res) {
+            if (res.code >0){
+                reloadImg();
+                layer.alert(res.message,{icon:2})
+            } else {
+                layer.msg(res.message);
+                setTimeout(function(){window.location.href='/index.php';},1000);
+            }
+        },'json');
+    }
+
+</script>
+{include file="public/footer"}

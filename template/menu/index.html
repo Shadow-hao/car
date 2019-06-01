@@ -1,0 +1,94 @@
+{include file="public/header"}
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-card-body">
+            <button type="button" class="layui-btn" onclick="nw('{:url('/index/menu/add')}','添加顶级分类')">添加</button>
+            {neq name="pid" value="0"} <a href="/index/menu/index" class="layui-btn" style="float: right">顶级菜单</a>{/neq}
+
+        </div>
+
+    </div>
+    <form action="" class="layui-form">
+        <table class="layui-table">
+            <colgroup>
+                <col width="50">
+                <col width="50">
+                <col width="150">
+                <col width="150">
+                <col width="150">
+                <col width="100">
+                <col width="100">
+                <col width="350">
+
+            </colgroup>
+
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>排序</th>
+                <th>菜单名称</th>
+                <th>controller</th>
+                <th>method</th>
+                <th>是否隐藏</th>
+                <th>是否禁用</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="data" id="vo" empty="菜单数据为空"}
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.order}</td>
+                <td>{$vo.title}</td>
+                <td>{$vo.controller}</td>
+                <td>{$vo.method}</td>
+                <td><input type="checkbox" lay-skin="primary" title="隐藏" value="1" {$vo.ishidden?'checked':''}></td>
+                <td><input type="checkbox" lay-skin="primary" title="禁用" value="1" {$vo.status?'checked':''}></td>
+
+                <td>
+                    <div class="layui-table-cell ">
+
+
+                        <?php
+                        if(!empty($list[$vo['id']])){
+                        if($list[$vo['id']]==$vo['id'] ){
+                           $v= $vo['id'];
+                        echo "<a class='layui-btn layui-btn-normal layui-btn-xs' href='/index/menu/index?pid=$v'> <i class='layui-icon layui-icon-note'></i>&nbsp;&nbsp;&nbsp;&nbsp;子菜单</a>";
+                        }
+
+
+                        }else{
+                        echo "<a class='layui-btn layui-btn-normal layui-btn-xs  layui-btn-disabled'> <i class='layui-icon layui-icon-note'></i>无子菜单</a>";
+
+                        }
+
+
+                        ?>
+
+                        {gt name="$vo.pid" value="0"}
+                        <a href="/index/menu/index?back_id={$vo.pid}" class="layui-btn layui-btn-normal layui-btn-xs">
+                            <i class="layui-icon layui-icon-note"></i> 返回上级菜单</a>
+
+                        {/gt}
+                        <a class="layui-btn layui-btn-xs" onclick="nw('/index/menu/add_c?id={$vo.id}','添加子分类')">
+                            <i class="layui-icon layui-icon-edit"></i>添加子菜单</a>
+                        <a class="layui-btn layui-btn-xs" onclick="nw('/index.php/index/menu/edit?id={$vo.id}','编辑管菜单')">
+                            <i class="layui-icon layui-icon-edit"></i>编辑菜单</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del({$vo.id},'/index.php/index/menu/del')">
+                            <i class="layui-icon layui-icon-delete"></i>删除</a>
+                    </div>
+                </td>
+            </tr>
+            {/volist}
+
+            </tbody>
+        </table>
+    </form>
+
+</div>
+<script>
+
+</script>
+{include file="public/footer"}

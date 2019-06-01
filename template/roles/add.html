@@ -1,0 +1,53 @@
+{include file="public/header"}
+
+<form  id="adda_g" class="layui-form" style="padding: 20px 20px 200px 0;">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="overflow: auto">角色名称</label>
+        <div class="layui-input-inline">
+            <input type="text" id="item_name" name="name"  placeholder="请输入类目名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="overflow: auto">角色权限</label>
+        {volist name="data" id="vo"}
+
+        <div class="layui-input-inline">
+            <input type="checkbox" name="right[{$vo.id}]"  lay-skin="primary" title="{$vo.title}" value="{$vo.id}">
+
+<?php if(isset($vo['son'])){
+foreach($vo['son'] as $k=>$v){
+            $title=$v['title'];
+            $id =$v['id'];
+            echo "<input type= checkbox name= right[$id] lay-skin=primary title=$title value= $id>";
+            }
+
+
+} ; ?>
+
+            <hr>
+        </div>
+        {/volist}
+    </div>
+    <div style="padding-bottom: 10px;float: right;">
+        <button type="button"  class="layui-btn" onclick="add_g()">添加</button>
+    </div>
+</form>
+
+<script>
+    function add_g() {
+        $.post('/index.php/index/roles/add',$('#adda_g').serialize(),function (res) {
+            if (res.code >0){
+                layer.alert(res.message,{icon:2})
+            } else {
+                layer.msg(res.message);
+                setTimeout(function(){parent.window.location.reload();},1000);
+            }
+        },'json')
+
+    }
+</script>
+
+
+{include file="public/footer"}

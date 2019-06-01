@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{$title|default="标题"}</title>
+    <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+<body layadmin-themealias="default">
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm6 layui-col-md3 ">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    会员总数
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">会员</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font layui-anim-rotate" style="text-align: center">{$data1.users}</p>
+                    <p>
+                        &nbsp;
+                        <span class="layuiadmin-span-color">&nbsp; <i class="layui-inline layui-icon layui-icon-user"></i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    充值总数
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">总收款</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font layui-anim-rotate" style="text-align: center">{$data1.recharge}</p>
+                    <p>
+                        &nbsp;
+                        <span class="layuiadmin-span-color"> &nbsp; <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    消费金额总数
+                    <span class="layui-badge layui-bg-green layuiadmin-badge">消费</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+
+                    <p class="layuiadmin-big-font layui-anim-rotate" style="text-align: center">{$data1.balance + $data1.money }</p>
+                    <p>
+                        &nbsp;
+                        <span class="layuiadmin-span-color">&nbsp; <i class="layui-inline layui-icon layui-icon-rmb"></i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    未消费余额总数
+                    <span class="layui-badge layui-bg-orange layuiadmin-badge">余额</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+
+                    <p class="layuiadmin-big-font  layui-anim-rotate" style="text-align: center">{$data1.recharge -$data1.balance }</p>
+                    <p>
+                        &nbsp;
+                        <span class="layuiadmin-span-color">&nbsp; <i class="layui-inline layui-icon layui-icon-rmb"></i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm6 layui-col-md3 ">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    现金消费总金额
+                    <span class="layui-badge layui-bg-blue layuiadmin-badge">现金</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font layui-anim-rotate" style="text-align: center">{$data1.money}</p>
+                    <p>
+                        &nbsp;
+                        <span class="layuiadmin-span-color">&nbsp; <i class="layui-inline layui-icon layui-icon-user"></i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    积分累计
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">积分</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+                    <p class="layuiadmin-big-font layui-anim-rotate" style="text-align: center">{$data1.integral}</p>
+                    <p>
+                        &nbsp;
+                        <span class="layuiadmin-span-color"> &nbsp; <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    余额消费总数
+                    <span class="layui-badge layui-bg-green layuiadmin-badge">消费</span>
+                </div>
+                <div class="layui-card-body layuiadmin-card-list">
+
+                    <p class="layuiadmin-big-font layui-anim-rotate" style="text-align: center">{$data1.balance}</p>
+                    <p>
+                        &nbsp;
+                        <span class="layuiadmin-span-color">&nbsp; <i class="layui-inline layui-icon layui-icon-rmb"></i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+<!--        <div class="layui-col-sm6 layui-col-md3">-->
+<!--            <div class="layui-card">-->
+<!--                <div class="layui-card-header">-->
+<!--                    未消费金额-->
+<!--                    <span class="layui-badge layui-bg-orange layuiadmin-badge">余额</span>-->
+<!--                </div>-->
+<!--                <div class="layui-card-body layuiadmin-card-list">-->
+
+<!--                    <p class="layuiadmin-big-font  layui-anim-rotate" style="text-align: center">{$data1.recharge -$data1.balance }</p>-->
+<!--                    <p>-->
+<!--                        &nbsp;-->
+<!--                        <span class="layuiadmin-span-color">&nbsp; <i class="layui-inline layui-icon layui-icon-rmb"></i></span>-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+
+</body>
+
+
+{include file="public/footer"}

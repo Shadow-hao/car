@@ -1,0 +1,58 @@
+{include file="public/header"}
+
+<form id="admins_add" class="layui-form" style="padding: 20px 20px 60px 0;">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name ="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+
+        <div class="layui-inline">
+            <label class="layui-form-label">角色</label>
+            <div class="layui-input-block">
+                <select id="gid" name="gid">
+                    <option value=1></option>
+                    {volist name="data" id="vo"}
+                    <option value={$vo.id}>{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password"  placeholder="密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" name="status"  lay-skin="primary" title="禁用" value="1">
+
+            </div>
+</div>
+
+    <div style="padding-bottom: 10px;float: right;">
+        <button type="button" class="layui-btn" onclick="admins_add()">添加</button>
+    </div>
+</form>
+<script>
+function admins_add() {
+    $.post('/index.php/index/account/add',$('#admins_add').serialize(),function (res) {
+        if (res.code >0){
+            layer.alert(res.message,{icon:2})
+        } else {
+            layer.msg(res.message);
+            setTimeout(function(){parent.window.location.reload();},1000);
+        }
+    },'json')
+
+}
+</script>
+
+
+{include file="public/footer"}

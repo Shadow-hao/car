@@ -1,0 +1,151 @@
+{include file="public/header"}
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <form id="search-f" method="get" action="/index/user/index" class="layui-form layui-card-header layuiadmin-card-header-auto" style="text-align: center">
+            <div class="layui-form-item">
+                <div class="layui-inline" style="margin-right: 0">
+                    <div class="layui-input-inline" style="margin-right: 0">
+                        <select id="search"  name="search">
+                            <option data-value="{$select}"  value="car" selected>车牌号</option>
+                            <option data-value="{$select}" value="card">卡号</option>
+                            <option data-value="{$select}" value="mobile">手机号</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="layui-inline" style="margin-right: 0">
+                        <input type="text" id="search"  name="mobile" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-useradmin" id="c_search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn" ></i>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="layui-card-body">
+
+            <form method="post" action="/index/user/index" class="layui-form" id="select">
+                <button type="button" class="layui-btn" onclick="wind('/index/user/add')">添加</button>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <select id="sex" name="order">
+                            <option data-value="{$order1}" value="id,desc">添加时间新->旧</option>
+                            <option data-value="{$order1}" value="id,asc">添加时间旧->新</option>
+                            <option data-value="{$order1}" value="recharge,desc">充值金额大->小</option>
+                            <option data-value="{$order1}"  value="recharge,asc">充值金额小->大</option>
+                            <option data-value="{$order1}" value="balance,desc">消费金额大->小</option>
+                            <option data-value="{$order1}" value="balance,asc">消费金额小->大</option>
+                        </select>
+                    </div>
+                    <button class="layui-btn ">排序</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="100">
+            <col width="150">
+            <col width="100">
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="220">
+            <col width="250">
+
+        </colgroup>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>手机号</th>
+            <th>卡号</th>
+            <th>车牌号</th>
+            <th>充值总金额</th>
+            <th>消费总金额</th>
+            <th>剩余总金额</th>
+            <th>现金消费金额</th>
+            <th>积分</th>
+            <th>加入时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+{volist name="data" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.mobile}</td>
+            <td>{$vo.card}</td>
+            <td>{$vo.car}</td>
+            <td>{$vo.recharge}</td>
+            <td>{$vo.balance}</td>
+            <td>{$vo.recharge - $vo.balance}</td>
+            <td>{$vo.money}</td>
+            <td>{$vo.integral}</td>
+            <td>{$vo.create_time}</td>
+
+
+            <td>
+                <div class="layui-table-cell ">
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" onclick="nw('/index.php/index/user/recharge?id={$vo.id}&mobile={$vo.mobile}&car={$vo.car}&card={$vo.card}','会员充值')" >
+                        <i class="layui-icon layui-icon-rmb"></i>充值</a>
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" onclick="nw('/index.php/index/user/balance?id={$vo.id}&mobile={$vo.mobile}&card={$vo.card}&car={$vo.car}','会员扣款')" >
+                        <i class="layui-icon layui-icon-rmb"></i>消费</a>
+                    <a href="/index.php/index/user/recharge_list?id={$vo.id}" class="layui-btn layui-btn-normal layui-btn-xs" >
+                        <i class="layui-icon layui-icon-tabs"></i>充值记录</a>
+                    <a href="/index.php/index/user/balance_list?id={$vo.id}" class="layui-btn layui-btn-normal layui-btn-xs" >
+                        <i class="layui-icon layui-icon-tabs"></i>消费记录</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del({$vo.id},'/index.php/index/user/del')">
+                        <i class="layui-icon layui-icon-delete"></i>删除</a>
+                </div>
+            </td>
+        </tr>
+{/volist}
+
+        </tbody>
+    </table>
+    <div style="text-align: center">
+        {$data->render()}
+    </div>
+
+</div>
+
+<script src="/static/lib/jquery/jquery.min.js"></script>
+<script src="/static/lib/layui/layui.all.js"></script>
+<script src="/static/js/script.js"></script>
+<script>
+
+    // var $selected =  $("#sex option:selected").attr('data-value');
+
+
+    // $('.layui-anim-upbit dd').each(function () {
+    //    if ($(this).attr("lay-value") == $selected){
+    //     //   $(this).addClass('layui-this').siblings().removeClass('layui-this');
+    //    }
+    // });
+
+
+    function wind(url) {
+        layer.open({
+            type: 2,
+            title: "添加会员",
+            shadeClose: true,
+            shade: false,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['430px', '500px'],
+            content: url,
+        });
+    }
+
+
+</script>
+</body>
+</html>

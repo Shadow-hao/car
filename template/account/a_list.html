@@ -1,0 +1,57 @@
+{include file="public/header"}
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-card-body">
+            <button type="button" class="layui-btn" onclick="nw('{:url('/index/account/add')}','添加管理员')">添加</button>
+        </div>
+
+    </div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="100">
+            <col width="250">
+            <col width="150">
+            <col width="220">
+            <col width="220">
+            <col width="250">
+
+        </colgroup>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>角色</th>
+            <th>状态</th>
+            <th>添加时间</th>
+            <th>更新时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="data" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.username}</td>
+            <td>{$roles[$vo.gid]}</td>
+            <td>{$vo.status? "<span style='color: #FF5722'>禁用</span>" :"<span style='color: #6fb737'>正常</span>"}</td>
+            <td>{$vo.create_time}</td>
+            <td>{$vo.update_time}</td>
+            <td>
+                <div class="layui-table-cell ">
+                    <a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-xs"  onclick="nw('/index.php/index/account/edit?id={$vo.id}','编辑管理员')">
+                        <i class="layui-icon layui-icon-edit"></i>编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del({$vo.id},'/index.php/index/account/del')">
+                        <i class="layui-icon layui-icon-delete"></i>删除</a>
+                </div>
+            </td>
+        </tr>
+
+        {/volist}
+        </tbody>
+    </table>
+
+
+</div>
+{include file="public/footer"}

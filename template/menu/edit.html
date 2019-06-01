@@ -1,0 +1,62 @@
+{include file="public/header"}
+
+<form id="menu_edit" class="layui-form" style="padding: 20px 20px 60px 0;">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name ="title"  value="{$menu.title}" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">controller</label>
+        <div class="layui-input-inline">
+            <input type="text" name="controller" value="{$menu.controller}"  placeholder="请输入控制器名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">method</label>
+        <div class="layui-input-inline">
+            <input type="text" name="method"  value="{$menu.method}" placeholder="请输入方法名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-inline">
+            <input type="text" name="order"  value="{$menu.order}" placeholder="请输入排序" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否隐藏</label>
+        <div class="layui-input-inline">
+            <input type="checkbox" name="ishidden" {$menu.ishidden?'checked':''} lay-skin="primary" title="隐藏" value="1">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否禁用</label>
+        <div class="layui-input-inline">
+            <input type="checkbox" name="status" {$menu.status?'checked':''} lay-skin="primary" title="禁用" value="1">
+        </div>
+    </div>
+    <input type="hidden" value="{$menu.id}" name="id">
+    <div style="padding-bottom: 10px;float: right;">
+        <button type="button" class="layui-btn" onclick="menu_edit()">编辑</button>
+    </div>
+
+</form>
+<script>
+    function menu_edit() {
+        $.post('/index.php/index/menu/edit',$('#menu_edit').serialize(),function (res) {
+            if (res.code >0){
+                layer.alert(res.message,{icon:2})
+            } else {
+                layer.msg(res.message);
+                setTimeout(function(){parent.window.location.reload();},1000);
+            }
+        },'json')
+
+    }
+</script>
+
+
+{include file="public/footer"}
