@@ -1,0 +1,58 @@
+{include file="public/header"}
+
+<form class="layui-form" style="padding: 20px 20px 20px 0;" id="integral_form">
+    <input type="hidden" name="id" value="{$id.id}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="mobile"  value="{$id.mobile}" disabled  class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">卡号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="card" value="{$id.card}" disabled class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车牌号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="car"  value="{$id.car}" disabled class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">兑换项目</label>
+        <div class="layui-input-inline">
+            {volist name='item' id="vo"}
+            <input type="checkbox" name="item[{$vo.name}]"  lay-skin="primary" title="{$vo.name}" value="{$vo.price}">
+            {/volist}
+            <hr>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">总积分</label>
+        <div class="layui-input-inline">
+            <input type="text" name="price" value="{$id['integral']}" disabled  class="layui-input">
+        </div>
+    </div>
+    <div style="padding-bottom: 10px;float: right;">
+        <button type="button" class="layui-btn" onclick="integral()">积分兑换</button>
+    </div>
+</form>
+<script>
+function integral() {
+    $.post('/index.php/index/user/integral',$('#integral_form').serialize(),function (res) {
+        if (res.code >0){
+            layer.alert(res.message,{icon:2})
+        } else {
+            layer.msg(res.message);
+            setTimeout(function(){parent.window.location.reload();},1000);
+        }
+    },'json');
+}
+
+
+</script>
+
+
+{include file="public/footer"}

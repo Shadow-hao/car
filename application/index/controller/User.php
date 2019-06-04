@@ -246,5 +246,91 @@ class User extends Base
         }
         return ['code'=>0,'message'=>'扣款成功'];
     }
+    //integral积分兑换
+    public function integral(){
+        if ($id = input('get.')) {
+            $res = model::get_integral();
+            $this->assign('item', $res);
+            $this->assign('id', $id);
+            return $this->fetch();
+        }
+        $integral = input('post.');
+        $list['user_id']=(int)$integral['id'];
+        $list['create_time']=time();
+        $item=$integral['item'];
+        $integral_item = implode(',',array_keys($item));
+        $list['name']= $integral_item;
+        //兑换总积分
+      $sum= array_sum($item);
+        $list['price']= $sum;
+        $res= model::get($integral['id']);
+        //用户积分
+       $user_integral = $res->integral;
+       if ($sum > $user_integral){
+           return ['code'=>1,'message'=>'积分不足'];
+       }
+        $res->integral = $res->integral -$sum;
+        if (!$res->save()){
+           return ['code'=>2,'message'=>'扣款失败'];
+       }
+        if (!(model::integral_list($list))){
+            return ['code'=>3,'message'=>'生成积分消费记录失败'];
+        }
+        return ['code'=>0,'message'=>'兑换成功'];
+
+  }
+    //积分兑换记录
+    public function integral_list()
+    {
+        $id = input('get.id');
+        //默认排序
+        $order1 = 'id,desc';
+        if (!!$id) {
+            $order1 = explode(",", $order1);
+            if (!$res = model::getintegral_list($id,$order1)) {
+                //dump($res);
+                $this->error('获取积分记录失败,消费记录为空');
+            }
+        }
+        $order1 = 'id,desc';
+        //分页
+        //分页
+        $page = input('get.page');
+        if (!!$page) {
+            $page = input('get.');
+            $order1 = $page['order'];
+            $p_order = explode(",", $page['order']);
+            // dump($page);
+            $res = model::getintegral_list($page['id'], $p_order);
+        }
+        //设置默认排序
+        // $order1 = 'id,desc';
+        if ($order = input('post.')) {
+            $id = $order['id'];
+            $order = $order['sex'];
+            $order1 = $order;
+            $order = explode(",", $order);
+
+            $res = model::getintegral_list($id, $order);
+        }
+        $sum = model::sum_b($id);
+        $this->assign('data', $res);
+        $this->assign('id', $id);
+        $this->assign('order1', $order1);
+        $this->assign('sum', $sum);
+        return $this->fetch();
+
+
+    }
+    //删除积分兑换记录
+    public function del_integral()
+    {
+        if (model::del_integral(input('post.id'))) {
+            return ['code' => 0, 'message' => '积分兑换记录删除成功'];
+
+        } else {
+            return ['code' => 1, 'message' => '积分兑换记录删除失败'];
+        }
+    }
 
 }

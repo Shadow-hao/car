@@ -1,0 +1,32 @@
+{include file="public/header"}
+
+<div class="layui-form" style="padding: 20px 20px 200px 0;">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="overflow: auto">类目名称</label>
+        <div class="layui-input-inline">
+            <input type="text" id="integral_name" value="{$data.name}"  placeholder="请输入类目名称" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="overflow: auto">积分</label>
+        <div class="layui-input-inline">
+            <input type="text" id="integral_price" value="{$data.name}"  placeholder="请输入积分" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="overflow: auto">排序</label>
+        <div class="layui-input-inline">
+            <input type="text" value={$data.order}  id="order"   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <input type="hidden" value="{$data.id}" id="id">
+    <div style="padding-bottom: 10px;float: right;">
+        <button class="layui-btn" onclick="edit_integral()">修改</button>
+    </div>
+</div>
+
+
+
+
+{include file="public/footer"}

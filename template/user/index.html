@@ -99,6 +99,10 @@
                         <i class="layui-icon layui-icon-rmb"></i>充值</a>
                     <a class="layui-btn layui-btn-normal layui-btn-xs" onclick="nw('/index.php/index/user/balance?id={$vo.id}&mobile={$vo.mobile}&card={$vo.card}&car={$vo.car}','会员扣款')" >
                         <i class="layui-icon layui-icon-rmb"></i>消费</a>
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" onclick="nw('/index.php/index/user/integral?id={$vo.id}&mobile={$vo.mobile}&card={$vo.card}&car={$vo.car}&integral={$vo.integral}','积分消费')" >
+                        <i class="layui-icon layui-icon-rmb"></i>积分兑换</a>
+                    <a href="/index.php/index/user/integral_list?id={$vo.id}" class="layui-btn layui-btn-normal layui-btn-xs" >
+                        <i class="layui-icon layui-icon-tabs"></i>积分兑换记录</a>
                     <a href="/index.php/index/user/recharge_list?id={$vo.id}" class="layui-btn layui-btn-normal layui-btn-xs" >
                         <i class="layui-icon layui-icon-tabs"></i>充值记录</a>
                     <a href="/index.php/index/user/balance_list?id={$vo.id}" class="layui-btn layui-btn-normal layui-btn-xs" >

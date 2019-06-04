@@ -58,10 +58,35 @@ class User extends Model
             return false;
         }
     }
+    //生成积分消费记录表
+    public static function integral_list($data){
+        if ( !!$res = Db::table('integral_list')->data($data)->insert()){
+            return $res;
+        }else{
+            return false;
+        }
+    }
+    //获取积分项目
+    public static function get_integral(){
+        if ( !!$res = Db::table('integral')->select()){
+            return $res;
+        }else{
+            return false;
+        }
+    }
     //获取消费记录
     public static function getBalance_list($id,$order=['id','desc']){
         // dump($id);
-        if ( !!$res = Db::table('balance_list')->where('user_id',$id)->order($order[0],$order[1])->paginate('3')){
+        if ( !!$res = Db::table('balance_list')->where('user_id',$id)->order($order[0],$order[1])->paginate('10')){
+            return $res;
+        }else{
+            return false;
+        }
+    }
+    //获取积分兑换记录
+    public static function getintegral_list($id,$order=['id','desc']){
+        // dump($id);
+        if ( !!$res = Db::table('integral_list')->where('user_id',$id)->order($order[0],$order[1])->paginate('10')){
             return $res;
         }else{
             return false;
@@ -83,6 +108,15 @@ class User extends Model
     public static function del_balances($id){
         //删除会员时消费记录
         if ( !!$res = Db::table('balance_list')->where('user_id',$id)->delete()){
+            return $res;
+        }else{
+            return false;
+        }
+    }
+    //删除积分兑换记录
+    public static function del_integral($id){
+        //删除会员时消费记录
+        if ( !!$res = Db::table('integral_list')->where('id',$id)->delete()){
             return $res;
         }else{
             return false;

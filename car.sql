@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 01/06/2019 16:08:55
+ Date: 04/06/2019 21:21:24
 */
 
 SET NAMES utf8mb4;
@@ -49,7 +49,7 @@ CREATE TABLE `balance_list`  (
   `balance` decimal(50, 2) NOT NULL DEFAULT 0.00,
   `create_time` int(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of balance_list
@@ -57,6 +57,49 @@ CREATE TABLE `balance_list`  (
 INSERT INTO `balance_list` VALUES (5, 2, '喷漆', 10.00, 1559362786);
 INSERT INTO `balance_list` VALUES (6, 6, '洗车,喷漆', 10.00, 1559362955);
 INSERT INTO `balance_list` VALUES (7, 6, '洗车,喷漆', 100.00, 1559363820);
+INSERT INTO `balance_list` VALUES (8, 6, '喷漆,打蜡', 1000.00, 1559652825);
+INSERT INTO `balance_list` VALUES (10, 6, '洗车,喷漆,打蜡', 10000.00, 1559654426);
+
+-- ----------------------------
+-- Table structure for integral
+-- ----------------------------
+DROP TABLE IF EXISTS `integral`;
+CREATE TABLE `integral`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `price` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `order` int(10) NOT NULL DEFAULT 0,
+  `create_time` int(10) NOT NULL DEFAULT 0,
+  `update_time` int(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of integral
+-- ----------------------------
+INSERT INTO `integral` VALUES (2, '打蜡', 500, 0, 1559648005, 1559648005);
+INSERT INTO `integral` VALUES (3, '洗车', 200, 0, 1559648546, 1559648546);
+
+-- ----------------------------
+-- Table structure for integral_list
+-- ----------------------------
+DROP TABLE IF EXISTS `integral_list`;
+CREATE TABLE `integral_list`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL DEFAULT 0,
+  `name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `price` int(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of integral_list
+-- ----------------------------
+INSERT INTO `integral_list` VALUES (1, 6, '洗车', 1559653130, 200);
+INSERT INTO `integral_list` VALUES (2, 6, '洗车', 1559653170, 0);
+INSERT INTO `integral_list` VALUES (6, 6, '打蜡,洗车', 1559654437, 700);
+INSERT INTO `integral_list` VALUES (5, 6, '洗车', 1559653845, 200);
 
 -- ----------------------------
 -- Table structure for item
@@ -95,7 +138,7 @@ CREATE TABLE `menu`  (
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `update_time` int(10) UNSIGNED NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -111,6 +154,8 @@ INSERT INTO `menu` VALUES (11, 0, 3, '会员管理', 'layui-icon-username', '', 
 INSERT INTO `menu` VALUES (12, 11, 0, '会员列表', '', 'user', 'index', 0, 0, 1559285167, 1559285167);
 INSERT INTO `menu` VALUES (13, 0, 4, '经营管理', 'layui-icon-engine', '', '', 0, 0, 1559356147, 1559356167);
 INSERT INTO `menu` VALUES (14, 13, 0, '经营项目', '', 'item', 'index', 0, 0, 1559356219, 1559356219);
+INSERT INTO `menu` VALUES (15, 0, 5, '积分管理', 'layui-icon-cart-simple', '', '', 0, 0, 1559646478, 1559646544);
+INSERT INTO `menu` VALUES (17, 15, 0, '积分消费项目', '', 'integral', 'index', 0, 0, 1559646710, 1559646710);
 
 -- ----------------------------
 -- Table structure for recharge_list
@@ -144,7 +189,7 @@ CREATE TABLE `roles`  (
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
-INSERT INTO `roles` VALUES (1, '超级管理员', '13,11,5,9,1,2,6,7,10,12,14');
+INSERT INTO `roles` VALUES (1, '超级管理员', '15,13,11,5,9,1,2,6,7,10,12,14,17');
 INSERT INTO `roles` VALUES (2, '系统管理员', '1,2');
 
 -- ----------------------------
@@ -169,7 +214,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (6, '17095068600', '0000', '苏E3897n', 100.00, 10.00, 110, 100.00, 1559362936, 1559363820);
+INSERT INTO `user` VALUES (6, '17095068600', '0000', '苏E3897n', 100.00, 10.00, 9410, 12100.00, 1559362936, 1559654437);
 INSERT INTO `user` VALUES (3, '17095068660', '0003', '苏E38975', 0.00, 0.00, 0, 0.00, 1559290282, 1559290282);
 INSERT INTO `user` VALUES (4, '17095068661', '0004', '苏E38976', 0.00, 0.00, 0, 0.00, 1559290317, 1559290317);
 
